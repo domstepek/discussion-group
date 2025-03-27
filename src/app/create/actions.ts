@@ -8,15 +8,10 @@ import { generateDiscussionID } from '@/utils';
 
 const prisma = new PrismaClient();
 
-export async function createRecords(name: string) {
-  const response = await prisma.$transaction([
-    prisma.discussion.create({
-      data: { id: generateDiscussionID() },
-    }),
-    prisma.user.create({
-      data: { name },
-    }),
-  ]);
+export async function createRecords(time: number) {
+  const response = await prisma.discussion.create({
+    data: { id: generateDiscussionID(), maxTime: time },
+  });
 
   return response;
 }

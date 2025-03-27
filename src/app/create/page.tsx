@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 // Components
-import { BackButton } from '@/components';
+import { NavigationButtons } from '@/components';
 
 // Utilities
 import { createRecords } from './actions';
@@ -11,15 +13,19 @@ export default function CreatePage() {
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
 
+  const { push } = useRouter();
+
   const onSubmit = async () => {
-    await createRecords(name);
+    const timeNumber = parseInt(time, 10);
+    const discussion = await createRecords(timeNumber);
+    push(`/room/${discussion.id}?name=${name}`);
   };
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-[#FFFFFF] justify-between group/design-root overflow-x-hidden">
       <div>
         <div className="flex items-center bg-[#FFFFFF] p-4 pb-2 justify-between">
-          <BackButton />
+          <NavigationButtons />
           <h2 className="text-[#1C160C] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
             New Group
           </h2>
