@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { use$ } from '@legendapp/state/react';
 import {
   Description,
   Dialog,
@@ -16,16 +17,19 @@ import {
 // Components
 import { NavigationButtons } from '@/components';
 
+// Context
+import RoomState$ from './context';
+
 // Hooks
-import { useDiscussionQuery } from './hooks';
+import { DiscussionQueryResponse, useDiscussionQuery } from './hooks';
 
 // Utilities
 import { pusherClient } from '@/lib/pusher-client';
-import RoomState$ from './context';
-import { use$ } from '@legendapp/state/react';
 
 export const SpeakingOrder = () => {
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<DiscussionQueryResponse['messages']>(
+    []
+  );
   const discussionQuery = useDiscussionQuery();
 
   useEffect(() => {
@@ -37,9 +41,12 @@ export const SpeakingOrder = () => {
     if (!channel) return;
     channel.unbind('message');
 
-    channel.bind('message', (message: any) => {
-      setMessages((prev) => [message, ...prev]);
-    });
+    channel.bind(
+      'message',
+      (message: DiscussionQueryResponse['messages'][number]) => {
+        setMessages((prev) => [message, ...prev]);
+      }
+    );
 
     return () => {
       channel.unbind('message');

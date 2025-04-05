@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-type DiscussionQueryResponse =
+export type DiscussionQueryResponse =
   | {
       messages: {
         id: string;

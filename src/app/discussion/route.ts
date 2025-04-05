@@ -46,6 +46,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(message, { status: 200 });
   } catch (error) {
+    console.error('Error processing request:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
@@ -89,6 +90,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(discussionCheck, { status: 200 });
     }
   } catch (error) {
+    console.error('Error joining discussion:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

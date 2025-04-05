@@ -62,7 +62,7 @@ export default function JoinPage() {
           </label>
         </div>
         <p className="text-[#1C160C] text-base font-normal leading-normal pb-3 pt-1 px-4">
-          Can't find the Room ID? Ask your discussion leader.
+          Can&apos;t find the Room ID? Ask your discussion leader.
         </p>
       </div>
       <div>
