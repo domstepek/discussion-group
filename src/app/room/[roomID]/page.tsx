@@ -5,7 +5,7 @@ import { RoomPageContent } from './components';
 export async function generateMetadata({
   params,
 }: {
-  params: { roomID: string };
+  params: Promise<{ roomID: string }>;
 }) {
   const { roomID } = await params;
 
